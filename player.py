@@ -16,14 +16,14 @@ class Player (CircleShape):
         return [a, b, c]
     
     def draw(self, screen):
-        #overrides the draw method from CircleShape()
+        """overrides the draw method from CircleShape()"""
         pygame.draw.polygon(screen,(255,255,255), self.triangle(), 2)
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
     
     def move(self, dt):
-        #creates a unit vector, rotate it by the player rotation, takes the player speed, then add the vector to the player position to move them to this place
+        """creates a unit vector, rotate it by the player rotation, takes the player speed, then add the vector to the player position to move them to this place"""
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
 

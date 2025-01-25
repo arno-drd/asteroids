@@ -3,6 +3,8 @@ import pygame
 # I'd usually not import stuff like this but for a small and personal program it does not matter that much:
 from constants import *
 from player import *
+from asteroid import *
+from asteroid_field import *
 
 def main():
     """Initialize and run the main game loop."""
@@ -10,13 +12,22 @@ def main():
     #set up a delta and a Clock for fps gestion
     dt = 0 
     clock = pygame.time.Clock()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
     #setting up groups so the code is optimal wwhen we will add a lot of other objects that will update and draw, in the infinite loop of the game
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    Player.containers = (updatable, drawable)
+    asteroids = pygame.sprite.Group()
 
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    Player.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) # spawns the player in the middle of the screen
+    
+    Asteroid.containers = (updatable, drawable, asteroids)
+    AsteroidField.containers = (updatable)
+    asteroid_field = AsteroidField() #creates the asteroid fields, spawns asteroids randomly when updated
+
+    
+    
 
     while True:
         for event in pygame.event.get():
