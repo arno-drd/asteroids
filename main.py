@@ -16,8 +16,10 @@ def main():
             if event.type == pygame.QUIT:
                 #checks if the user closes the pygame tab, it will quit the game if they do
                 return
+        player.update(dt)
         screen.fill((000,000,000))
         player.draw(screen)
+
 
         pygame.display.flip()
         #using the pygame.time.Clock.tick() function limits the fps to 60; Also save the time that past in millisecond in our delta value
