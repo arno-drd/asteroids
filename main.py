@@ -5,6 +5,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroid_field import AsteroidField
+from shoot import Shot
 
 def main():
     """Initialize and run the main game loop."""
@@ -18,6 +19,7 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) # spawns the player in the middle of the screen
@@ -25,6 +27,8 @@ def main():
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
     asteroid_field = AsteroidField() #creates the asteroid fields, spawns asteroids randomly when updated
+
+    Shot.containers = (shots, updatable, drawable)
 
     while True:
         for event in pygame.event.get():
@@ -39,6 +43,10 @@ def main():
             if asteroid.collision(player) :
                 print("Game Over !")
                 sys.exit()
+            for shot in shots :
+                if asteroid.collision(shot):
+                    asteroid.split()
+                    shot.kill()
         screen.fill((000,000,000))
 
         for obj in drawable:
