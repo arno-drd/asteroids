@@ -1,10 +1,10 @@
 #dont forget to activate the virutal environment: "source venv/bin/activate" ty !
 import pygame
-# I'd usually not import stuff like this but for a small and personal program it does not matter that much:
+import sys
 from constants import *
-from player import *
-from asteroid import *
-from asteroid_field import *
+from player import Player
+from asteroid import Asteroid
+from asteroid_field import AsteroidField
 
 def main():
     """Initialize and run the main game loop."""
@@ -26,9 +26,6 @@ def main():
     AsteroidField.containers = (updatable)
     asteroid_field = AsteroidField() #creates the asteroid fields, spawns asteroids randomly when updated
 
-    
-    
-
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -38,6 +35,10 @@ def main():
         for obj in updatable:
             obj.update(dt)
 
+        for asteroid in asteroids :
+            if asteroid.collision(player) :
+                print("Game Over !")
+                sys.exit()
         screen.fill((000,000,000))
 
         for obj in drawable:

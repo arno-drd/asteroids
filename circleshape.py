@@ -12,9 +12,13 @@ class CircleShape(pygame.sprite.Sprite):
         self.radius = radius
 
     def draw(self, screen):
-        # draws the asteroid (circle) on the screen
+        """to be overrided by child classes"""
         pass
 
     def update(self, dt):
-        # updates the asteroid
+        """to be overrided by child classes"""
         pass
+
+    def collision(self, target):
+        """returns True if colliding with the target"""
+        return self.position.distance_to(target.position) < self.radius + target.radius
